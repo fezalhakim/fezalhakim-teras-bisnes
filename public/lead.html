@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hubungi Kami</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="auth">
+    <div class="panel">
+      <h1>Hubungi Kami</h1>
+      <p class="muted">Isi maklumat anda dan kami akan menghubungi anda.</p>
+      <form id="f">
+        <label>Nama <input name="name" required maxlength="120"></label>
+        <label>Telefon <input name="phone" type="tel" maxlength="30"></label>
+        <label>E-mel <input name="email" type="email" maxlength="200"></label>
+        <label>Mesej <textarea name="message" maxlength="2000"></textarea></label>
+        <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button class="primary">Hantar</button>
+        <p id="msg" class="muted" role="status"></p>
+      </form>
+    </div>
+  </div>
+  <script>
+    const f = document.getElementById("f"), msg = document.getElementById("msg");
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const body = Object.fromEntries(new FormData(f));
+      f.querySelector("button").disabled = true;
+      try {
+        const r = await fetch("/api/public/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || "Ralat");
+        f.reset();
+        msg.textContent = "Terima kasih! Kami akan menghubungi anda tidak lama lagi.";
+      } catch (err) {
+        msg.textContent = err.message;
+      } finally {
+        f.querySelector("button").disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

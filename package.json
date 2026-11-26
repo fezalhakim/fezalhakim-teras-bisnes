@@ -1,0 +1,19 @@
+{
+  "name": "teras-bisnes",
+  "version": "0.1.0",
+  "description": "Sistem operasi bisnes ringkas: HR, Perakaunan dan CRM dalam satu app, dengan pembantu AI baca-sahaja.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test test/*.test.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0",
+    "express": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "ISC"
+}

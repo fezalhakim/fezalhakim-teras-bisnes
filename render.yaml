@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: teras-bisnes
+    runtime: node
+    plan: starter # cakera kekal memerlukan pelan berbayar
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    disk:
+      name: teras-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "22.13.0"
+      - key: DB_PATH
+        value: /var/data/teras.db
+      - key: ANTHROPIC_API_KEY
+        sync: false
